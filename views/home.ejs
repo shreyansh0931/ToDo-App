@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= title %></title>
+    <link rel="stylesheet" href="/css/home.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0-beta3/css/all.min.css" integrity="sha384-cs5o+5n4Er4Rg0u/6hB5OO/tPDdIYFz8A9fECnUaTaJ00lT/7kXhbe5o7EK0dFkW2" crossorigin="anonymous">
+</head>
+<body>
+    <div id="main-body">
+        <div>
+            <h1 id="heading">ToDo App</h1>
+        </div>
+        <form action="/create-task" method="post" class="task-form">
+            <div class="input-group">
+                <label for="description">Description</label>
+                <input type="text" name="Description" id="description" required>
+            </div>
+            <div class="input-group">
+                <label for="category">Select a category:</label>
+                <select id="category" name="Category" required>
+                    <option value="personal">Personal</option>
+                    <option value="professional">Professional</option>
+                    <option value="others">Others</option>
+                    <option value="school">School</option>
+                    <option value="cleaning">Cleaning</option>
+                </select>
+            </div>
+            <div class="input-group">
+                <label for="dueDate">Due Date:</label>
+                <input type="date" id="dueDate" name="DueDate">
+            </div>
+            <button type="submit" class="add-button">
+                <i class="fas fa-plus"></i> Add Task
+            </button>
+        </form>
+        
+
+        <ul class="task-list">
+            <% for(let i of tasks_list) { %>
+            <li class="task-item">
+                <input type="checkbox" name="task" value="<%= i.id %>" class="task-checkbox">
+                <div class="task-details">
+                    <p class="task-description <%= i.completed ? 'completed-task' : '' %>"><%= i.Description %></p>
+                    <p class="task-category"><%= i.Category %></p>
+                    <p class="task-due-date"><%= i.DueDate %></p>
+                </div>
+                <a href="/delete-task?id=<%= i.id %>" class="delete-button">
+                    <i class="fas fa-trash"></i>
+                </a>
+            </li>
+            <% } %>
+        </ul>
+    </div>
+    <script src="https://kit.fontawesome.com/faa8288ca3.js" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <script type="text/javascript" src="/JavaScript/home.js"></script>
+</body>
+</html>
